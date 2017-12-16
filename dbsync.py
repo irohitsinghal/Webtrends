@@ -8,5 +8,7 @@ dbconfig = { 'host': 'notebook.cjwbzocqulu8.us-east-1.rds.amazonaws.com',
 conn = mysql.connector.connect(**dbconfig)
 cursor = conn.cursor()
 
-_SQL = """insert into bitcoin(currency, price, date, time) values (%s, %s, %s, %s)"""
-cursor.execute(_SQL, ('INR', '2345', '22-2-1988', '11:12:00'))
+#_SQL = """insert into bitcoin(currency, price, date, time) values (%s, %s, %s, %s)"""
+#cursor.execute(_SQL, ('INR', '2345', '1988-02-22', '11:12:00'))
+
+print(cursor.fetchall())
