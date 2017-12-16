@@ -10,5 +10,6 @@ cursor = conn.cursor()
 
 #_SQL = """insert into bitcoin(currency, price, date, time) values (%s, %s, %s, %s)"""
 #cursor.execute(_SQL, ('INR', '2345', '1988-02-22', '11:12:00'))
-
+_SQL = """select * from  bitcoin"""
+cursor.execute(_SQL)
 print(cursor.fetchall())
