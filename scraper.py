@@ -1,6 +1,7 @@
 import requests;
 from jsonrpclib.jsonrpc import ServerProxy
 from pprint import pprint
+import re;
 
 class OpenNLP:
 	def __init__(self, host='localhost', port=8080):
@@ -16,9 +17,18 @@ if __name__ == '__main__':
 	req = requests.get(url);
 	data = list(req.json());
 
+	
+#	print(filtered);
+
 	for i in data:
 		url = 'https://hacker-news.firebaseio.com/v0/item/' + str(i)+'.json';
 		req = requests.get(url);
-		refined = nlp.parse(dict(req.json())['title']);
-		print(refined);
+		statement = dict(req.json())['title'];
+		parsed = nlp.parse(statement);		
+		refined = re.split('\(',parsed);
+		r = re.compile("(NNP).*");
+		filtered=filter(r.match, refined)
+		for j in filtered:
+			j= j.strip(" )")[4:];
+			print(j);
 	
