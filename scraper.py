@@ -12,7 +12,6 @@ dbconfig = { 'host': 'notebook.cjwbzocqulu8.us-east-1.rds.amazonaws.com',
 conn = mysql.connector.connect(**dbconfig)
 cursor = conn.cursor()
 _SQL = """insert into trends(word, count) values (%s, %s)"""
-cursor.execute(_SQL)
 
 class OpenNLP:
 	def __init__(self, host='localhost', port=8080):
@@ -27,9 +26,6 @@ if __name__ == '__main__':
 	url = 'https://hacker-news.firebaseio.com/v0/beststories.json'
 	req = requests.get(url);
 	data = list(req.json());
-
-	
-#	print(filtered);
 
 	for i in data:
 		url = 'https://hacker-news.firebaseio.com/v0/item/' + str(i)+'.json';
