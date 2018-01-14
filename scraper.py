@@ -29,6 +29,6 @@ if __name__ == '__main__':
 		r = re.compile("(NNP).*");
 		filtered=filter(r.match, refined)
 		for j in filtered:
-			j= j.strip(' ):,?\'-"')[3:];
+			j= j.strip(' ):,?\'-\"')[4:];
 			print(j);
 	
