@@ -2,6 +2,17 @@ import requests;
 from jsonrpclib.jsonrpc import ServerProxy
 from pprint import pprint
 import re;
+import mysql.connector;
+
+dbconfig = { 'host': 'notebook.cjwbzocqulu8.us-east-1.rds.amazonaws.com',
+                'user': 'script',
+                'password': 'script@123',
+                'database': 'warehouse', }
+
+conn = mysql.connector.connect(**dbconfig)
+cursor = conn.cursor()
+_SQL = """insert into trends(word, count) values (%s, %s)"""
+cursor.execute(_SQL)
 
 class OpenNLP:
 	def __init__(self, host='localhost', port=8080):
@@ -28,7 +39,8 @@ if __name__ == '__main__':
 		refined = re.split('\(',parsed);
 		r = re.compile("(NNP).*");
 		filtered=filter(r.match, refined)
-		for j in filtered:
+		for j in filtered[:1]:
 			j= j.strip(' ):,?\'-\"')[4:];
+			cursor.execute(_SQL, (j, '1'))
 			print(j);
 	
