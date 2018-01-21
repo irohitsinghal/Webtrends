@@ -10,7 +10,7 @@ dbconfig = { 'host': 'notebook.cjwbzocqulu8.us-east-1.rds.amazonaws.com',
                 'database': 'warehouse', }
 
 
-_SQL = """insert into trends(word, count) values (%s, %s)"""
+_SQL = """insert into trends(word, count) values(%s, %s)"""
 
 class OpenNLP:
 	def __init__(self, host='localhost', port=8080):
