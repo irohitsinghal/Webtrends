@@ -39,8 +39,9 @@ if __name__ == '__main__':
 		for j in filtered[:1]:
 			j= j.strip(' ):,?\'-\"')[4:];
 			j = j.strip()
-			cursor.execute(_SQL, (j, '1'))
+			cursor.execute(_SQL, (j, 1))
 			print(j+": "+statement);
 
+	conn.commit()
 	cursor.close()
 	conn.close()
