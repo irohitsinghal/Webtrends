@@ -9,8 +9,7 @@ dbconfig = { 'host': 'notebook.cjwbzocqulu8.us-east-1.rds.amazonaws.com',
                 'password': 'script@123',
                 'database': 'warehouse', }
 
-conn = mysql.connector.connect(**dbconfig)
-cursor = conn.cursor()
+
 _SQL = """insert into trends(word, count) values (%s, %s)"""
 
 class OpenNLP:
@@ -26,6 +25,8 @@ if __name__ == '__main__':
 	url = 'https://hacker-news.firebaseio.com/v0/beststories.json'
 	req = requests.get(url);
 	data = list(req.json());
+	conn = mysql.connector.connect(**dbconfig)
+	cursor = conn.cursor()
 
 	for i in data:
 		url = 'https://hacker-news.firebaseio.com/v0/item/' + str(i)+'.json';
@@ -37,6 +38,9 @@ if __name__ == '__main__':
 		filtered=filter(r.match, refined)
 		for j in filtered[:1]:
 			j= j.strip(' ):,?\'-\"')[4:];
+			j = j.strip()
 			cursor.execute(_SQL, (j, '1'))
 			print(j+": "+statement);
-	
+
+	cursor.close()
+	conn.close()
